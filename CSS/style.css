@@ -1,0 +1,24 @@
+p{
+    font-size: 50px;
+    color:bisque;
+}
+aside{
+    font-size: large;
+    color: cadetblue;
+}
+
+#id1{
+    font-size: large;
+    color: darkslategrey;
+    position:relative;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.class1{
+    color: gold;
+    font-weight: bolder ;
+    float: right;
+    width:25%;
+    background-color: lemonchiffon;
+    height:max-content;
+}
