@@ -35,3 +35,22 @@ main > p{
 ul > li:not(:nth-child(2n)){
     color: darkseagreen;
 }
+
+a:link, a:visited{
+    color: red;
+}
+a:hover{
+    color: cadetblue;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+p::first-line{
+    background-color: black;
+}
+p::first-letter{
+    font-size : 50px
+  }
+p::selection{
+    background-color: cornsilk;
+}
