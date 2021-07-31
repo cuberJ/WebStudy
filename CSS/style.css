@@ -22,3 +22,16 @@ aside{
     background-color: lemonchiffon;
     height:max-content;
 }
+
+div.red{
+    color: red;
+}
+
+main > p{
+    color:orange;
+    font-size: small;
+}
+
+ul > li:not(:nth-child(2n)){
+    color: darkseagreen;
+}

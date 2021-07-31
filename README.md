@@ -96,6 +96,10 @@
 
 内部样式表只能对本页面内使用，无法跨页面起作用。
 
+
+
+### 简单选择器
+
 上述写法的效果对所有的p标签均起作用，如果想针对某类标签起作用，可以采用<font color = red>选择器</font>的方式如下：
 
 ```html
@@ -128,6 +132,138 @@
 
 
 
+
+
+### 复合选择器
+
+如果需要设定的CSS类有多个限定条件，则简单选择器就难以使用，需要使用符合选择器。
+
+```html
+<style>
+/*
+  假如需要对class为red的div标签里所有文字颜色进行修改
+  */
+  div.red{
+    color: red;
+   }
+  
+/*假如需要对同时为a b c三个类的标签进行修改*/
+  .a.b.c{
+    color:red;
+
+ /*如果需要同时对span标签和p标签进行修改*/
+    span, p{
+      color:red;
+    }
+  }
+</style>
+<div class='red'>测试</div>
+<p class='red'>测试</p>
+<p class='a b c'>测试</p>
+```
+
+
+
+
+
+### 关系选择器
+
+针对嵌套标签，使用`>`来实现嵌套
+
+```html
+<style>
+	/*为div包含的span元素设置条件*/
+  div > span {
+    color:red;
+  }
+  /*为div包含的p中的div元素设置条件*/
+  div > p > div{
+    color:red;
+  }
+  /*为class是box的div标签里的span设置条件*/
+  div.box > span{
+    color:orange;
+  }
+</style>
+
+<div>
+  测试代码span_1
+  <p>
+    测试代码p
+    <div>
+			测试代码div
+    </div>
+  </p>
+	<span>测试代码span_2</span>
+</div>
+
+<div class='box'>
+  <span>
+  测试box类下的span标签
+  </span>
+</div>
+```
+
+
+
+
+
+### 属性选择器
+
+针对标签中带有不同属性的情况，依据属性去修改标签内容。方式是采用`[]`进行标记
+
+```html
+<style>
+/*修改带有title属性的p标签*/
+p[title]{
+  color : orange;
+}
+/*修改带有title且title属性值为abc的p标签*/
+p[title=abc]{
+  color : orange;
+}
+/*修改带有title且title属性值不为abc的p标签*/
+p[title^=abc]{
+  color : orange;
+}
+</style>
+
+<p title='abc'></p>
+<p title='def'></p>
+<p title='mno'></p>
+<p></p>
+```
+
+
+
+### 伪类
+
+伪类用于描述一类特殊的元素：比如被鼠标选中的元素，标签内第一个子标签，被点击的元素。
+
+通常伪类处理的都是一些动态的元素信息，这些信息难以通过静态的class标记去区分，而是依赖于页面的实时渲染结果或者用户的操作结果
+
+伪类的处理方式是通过`:`标记
+
+```html
+<style>
+/*标记ul标签里的li子标签中，第一个li子标签*/
+  ul > li:first-child{
+    color: red;
+  }
+/*或者用nth写法。这种写法的括号中如果写n，则表示应用于全部子标签；如果写2n或者even，则表示应用于全部偶数标签；写2n+1或者odd表示奇数*/
+  ul > li:nth-child(1){
+    color : red;
+  }
+  
+  /*伪类中取反操作通过:not实现。下面通过取反操作对ul中奇数行标签改变颜色*/
+  ul > li:not(:nth-child(2n)){
+     color: darkseagreen;
+  }
+</style>
+```
+
+
+
 ## 外部样式
 
 解决了内部样式无法跨页面使用的缺陷。可以采用新建一个后缀名为`.css`的文件，调用该文件的方式实现
@@ -143,4 +279,8 @@
 <link rel='stylesheet' href='./style.css'> //rel
 表示外接css的模式
 ```
+
+
+
+
 
