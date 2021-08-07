@@ -324,3 +324,47 @@ p::first-letter{
 
 # JavaScript
 
+Js最重要的事项：
+
+<font color = red>如果`<script>`标签中采用src引入了外部的js文件，那么这个script标签中就不能再编写其他的操作。但可以重新创建一个新的script标签去编写</font>
+
+```html
+<script src='./style.js'></script> <!--这个标签里，引入了外部的js文件，那么这个script标签对中就无法编写新的规则-->
+
+<script>
+  alert('Here is the new tab');
+</script>
+<!--可以重新启用一个新的script标签编写这个HTML文件的新的操作-->
+```
+
+
+
+## 基本语法
+
+1. JS严格区分大小写， 但HTML不区分大小写
+2. JS语句需要以分号作为结尾。浏览器有时候会自动补全分号，但是可能会出错
+3. 浏览器会忽视JS的空格和换行
+
+
+
+### 语法
+
+```javascript
+//声明用var
+var a;
+a=1;
+
+//字符串和数组
+var str = '123';
+var num = [1,2,3,4]
+var str2 = '456'
+console.log(num[0], name[name.length-1])
+console.log(str + str2) // 字符串拼接
+
+//变量类型检查,检查的结果以string类型返回
+var test = typeof a; //此时test的值为'string'
+console.log(test[1]);//返回值为't'
+
+//强制类型转换
+var a=123
+console.log(a.toString())
