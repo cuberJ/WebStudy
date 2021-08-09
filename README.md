@@ -434,3 +434,21 @@ var answer = func1(num[0], num[1]);
 
 
 # Ajax
+
+## XML标记语言
+
+和HTML类似的标记语言，但是没有HTML的预定义标签，而是需要自行定义，用来记录数据
+
+XML可以直接写入HTML中，AJAX异步刷新的时候，曾经采用XML字符串进行传输，后期改用JSON格式进行数据交换
+
+```xml
+<!--以下所有数据均为自定义数据-->
+<student>
+    <name>XML_infotest</name>
+    <gender>male</gender>
+    <age>18</age>
+</student>
+```
+
+
+
