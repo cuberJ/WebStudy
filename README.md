@@ -1,10 +1,14 @@
 # 目录
 
-[CS基础操作](# CSS基础操作)
+[HTML基础操作](# HTML基础操作)
 
-```
-[内部样式](# 内部样式)
-```
+[CSS基础操作](# CSS基础操作)
+
+[JavaScript](# JavaScript)
+
+[Ajax](# Ajax)
+
+
 
 
 # HTML基础操作
@@ -347,7 +351,7 @@ Js最重要的事项：
 
 
 
-### 语法
+### 基础语法
 
 ```javascript
 //声明用var
@@ -368,3 +372,65 @@ console.log(test[1]);//返回值为't'
 //强制类型转换
 var a=123
 console.log(a.toString())
+```
+
+
+
+### 对象
+
+类似于C++中的类
+
+```javascript
+var obj = Object() //声明对象
+obj.name = 'obj_name' //对其中的变量直接赋值，不需要声明
+obj.num = [1,2,3,4]
+console.log(obj.num[1])
+console.log(obj.test) //对于没有的属性，会打印undefined
+delete obj.name //删除对象中的已经赋值的对象
+```
+
+可以通过对象创建字典
+
+```javascript
+var obj = {
+  'name':'Barry Allen',
+  'age':22,
+  'gender':'male'
+};
+
+//如果需要枚举其中的属性
+for(var temp in obj)
+{
+    console.log(temp, obj[temp]); //temp是key值，为string属性，通过key值可以访问obj的内容
+    console.log(typeof(temp));
+}
+```
+
+
+
+
+
+### 函数
+
+```javascript
+function func1(a, b)
+{
+    console.log(a*b);
+  	for(var i=0; i<10; i+=1)
+      {
+        b*=2;
+      }
+  	if(b % 2 == 0)
+      return true;
+ 		else
+      return false
+}
+var num = [1,2,3,4];
+var answer = func1(num[0], num[1]);
+```
+
+
+
+
+
+# Ajax
