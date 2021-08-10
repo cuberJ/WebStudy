@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-app.get('/', (request, response)=>{
+app.get('/server', (request, response)=>{
     response.send('hello world')
+    response.setHeader('Access-Control-Allow-Origin', '*')
 });
 
 app.listen(8000, ()=>{

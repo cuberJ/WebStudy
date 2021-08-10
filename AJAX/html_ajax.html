@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ajax通讯测试</title>
+</head>
+<style>
+    #right {
+        background-color: azure;
+        font-weight: bold;
+        font-size: medium;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 73%;
+        float: right;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 20px;
+
+    }
+
+    #left {
+        background-color: azure;
+        font-weight: bold;
+        font-size: medium;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 23%;
+        float: left;
+        padding-right: 5px;
+        border-radius: 20px;
+        padding-left: 5px;
+    }
+
+    .card {
+        backdrop-filter: blur(30px);
+        border-radius: 20px;
+        padding: 20px;
+        margin-top: 20px;
+        transition: 0.s all;
+
+    }
+
+    .card:hover {
+        background-color: rgba(234, 235, 221, 0.8);
+        backdrop-filter: blur(80%);
+    }
+</style>
+
+
+
+<body>
+    <div id='left'>
+        <div class="card">
+            <button>我就是个装饰</button>
+            <p>这是左侧边栏文字内容</p>
+        </div>
+    </div>
+    <div id='right'>
+        <div class="card">
+            <button id='buttons'>点击我实现刷新</button>
+            <p id='text'>这是右侧边栏文字内容</p>
+        </div>
+
+    </div>
+    <script>
+        var btn = document.getElementById('buttons')
+        var result = document.getElementById('text')
+        console.log(btn, result)
+    
+        btn.onclick = function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://127.0.0.1:8000/server');
+            xhr.send();
+            console.log(xhr.status)
+            xhr.onreadystatechange = function () {
+                console.log('测试一下')
+                result.innerText = xhr.response;
+            }
+    
+        }
+    
+    
+    
+    </script>
+</body>
+
+</html>
