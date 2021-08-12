@@ -52,7 +52,7 @@
     <div id='left'>
         <div class="card">
             <button>我就是个装饰</button>
-            <p>这是左侧边栏文字内容</p>
+            <p id='textInBlk'>这是左侧边栏文字内容</p>
         </div>
     </div>
     <div id='right'>
@@ -63,23 +63,40 @@
 
     </div>
     <script>
-        var btn = document.getElementById('buttons')
-        var result = document.getElementById('text')
-    
+        var btn = document.getElementById('buttons');
+        var result = document.getElementById('text');
+        console.log(btn, result)
         btn.onclick = function () {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://127.0.0.1:8000/server');
+            xhr.open('GET', 'http://127.0.0.1:8000/server?a=100&b=200');
             xhr.send();
-            console.log(xhr.status)
+            console.log(xhr.status);
             xhr.onreadystatechange = function () {
-                console.log(xhr.response)
+                console.log(xhr.response);
                 result.innerText = xhr.response;
             }
-    
         }
-    
-    
-    
+
+        var blk = document.getElementById('left');
+        blk.addEventListener('click', function () {
+            const xhr2 = new XMLHttpRequest();
+            xhr2.responseType = 'json'
+            xhr2.open('POST', 'http://127.0.0.1:8000/server?a=100&b=200');
+            xhr2.send();
+            console.log('test1')
+            xhr2.onreadystatechange = function () {
+                if (xhr2.readyState === 4) { //如果这里不加入两个判断，虽然也能正确执行，但是控制台会报错，因为系统无法判断一个响应是否完成，就会不停的循环查询到完成为止，加重浏览器的报错压力
+                    if (xhr2.status >= 200 && xhr2.status < 300) {
+                        console.log('test2')
+                        var text = document.getElementById('textInBlk');
+                        //let data = JSON.parse(xhr2.response);
+                        console.log(xhr2.response)
+                        console.log(xhr2.response.number + " 这里是name属性")
+                        text.innerText = xhr2.response.number;
+                    }
+                }
+            }
+        })
     </script>
 </body>
 
