@@ -457,3 +457,148 @@ XML可以直接写入HTML中，AJAX异步刷新的时候，曾经采用XML字符
 
 # VUE
 
+## 基本规则
+
+### 插值语法
+
+1. Vue在JavaScript中通过对div容器的ID或者类进行标记，汇总数据，并对该数据块进行处理
+
+   ```html
+   <div id='test1'>
+     <p>
+       The name is {{name}}
+     </p>
+   </div>
+   
+   <script>
+     //创建vue实例
+     const v = new Vue({
+       el: '#test1', //通过#对id进行标记。也可以使用document.getElementById()方式。如果是class，那就用.，这和css的规则一致
+       data:{
+         name: 'Batman',
+         gender: 'male' //data里面的key不需要打单引号，否则会调用错误
+       }
+     })
+   </script>
+   ```
+
+   一个实例只能接管一个div容器，即使el中使用了class类型的对象，vue依然只识别第一个容器，后面的容器不会被解析
+
+   同样，如果有多个Vue实例同时对一个id的容器进行修饰，那么只有第一个vue实例能够最终影响到这个容器，后续的实例无法对这个容器进行修饰
+
+   总的来说，容器与实例是一对一的关系
+
+   ```html
+   <div id='test1'>
+     <p>
+       The name is {{name}}
+     </p>
+   </div>
+   
+   <script>
+     //创建vue实例
+     const v1 = new Vue({
+       el: '#test1', 
+       data:{
+         gender: 'male' 
+       }
+     })
+     
+     const v2 = new Vue({ // 这个实例无法对test1再次影响，最终结果中，test1里只能访问到gender属性，调用{{name}}属性会报错
+       el: '#test1', 
+       data:{
+         name: 'Batman',
+       }
+     })
+   </script>
+   ```
+
+ 2. {{}}内除了数据变量名外，还可以直接写入js表达式
+
+    ```html
+    <p>
+      {{name}}, {{gender}}, {{Date.now()}}
+    </p>
+    ```
+
+	3. 如果一个div容器属性过多，可以采用层级的方式进行标记
+
+    ```html
+    <p>
+      {{name}}
+    </p>
+    <p>
+      {{school.name}}
+    </p>
+    
+    <script>
+     const v1 = new Vue({
+        el: '#test1', 
+        data:{
+          name: 'batman' 
+          school:{
+          	name:'superman'
+        	}
+        }
+      })
+    </script>
+    ```
+
+    
+
+
+
+### 指令语法
+
+用于修改标签内的属性值。标准写法是在需要修改的属性前写`v-bind:`，但在vue里可以化简成一个单独的冒号
+
+```html
+<a :href=url>点击我跳转</a>
+<a v-bind:href=url>点我跳转的效果和上一行一样</a>
+<script>
+const v1 = new Vue({
+    el: '#test1', 
+    data:{
+      url:'http://www.baidu.com'
+    }
+  })
+</script>
+```
+
+
+
+### 单向和双向绑定
+
+一个输入框里的数据如果修改了，那么另一个框里的信息也能及时跟着改变，就是双向绑定。采用v-model对核心的数据进行绑定。可以绑定了多个标签，每一个标签修改的时候都会影响所有name属性
+
+```html
+单向数据绑定<input type="text" v-bind:value=name>
+双向数据绑定<input type="text" v-model:value=name> 
+// 双向绑定后，修改第二行的输入框里的内容，所有调用name属性的值都会同时被修改为输入框里的值；但是修改第一行输入框里的值，只有其自身的值会被修改
+```
+
+v-model只能对具有value属性的标签（基本上只有input，select标签）进行绑定，其他的标签（比如p，h1，div等）无法使用
+
+
+
+### data属性
+
+vue 的data属性可以有两种写法，第一种为上述的写法，第二种函数式写法如下：
+
+```javascript
+const v = new Vue({
+  el:'#root',
+  data: function(){
+    return{
+      name:'Batman'
+    }
+  }
+});
+```
+
+这里有三个注意点：
+
+1. 这个写法中，data作为key值，其value为一个函数,这个函数的返回值是一个字典
+2. 这里的函数必须用function写法，不能用箭头函数
+3. 组件中，data必须采用这种函数式写法
+

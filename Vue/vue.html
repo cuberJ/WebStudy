@@ -9,9 +9,11 @@
 <script src="./vue.js" type='text/javascript'></script>
 <body>
     <div id='root'>
-        <p>{{name}}</p>
-        <p>{{age}}</p>
-        <p>{{gender}}</p>
+        <p>{{name}}，{{age}}，{{gender}}</p>
+        单向数据绑定<input type="text" v-bind:value=name>
+        双向数据绑定<input type="text" v-model:value=name>
+        双向数据绑定测试2<input type="text" v-model:value=name>
+        <a v-bind:href=url><button>点击我</button></a>
     </div>
 
     <script>
@@ -23,7 +25,8 @@
             data:{
                 name:'Batman',
                 gender:'male',
-                age: ages
+                age: ages,
+                url:'https://www.bilibili.com'
             }
         });
     </script>
