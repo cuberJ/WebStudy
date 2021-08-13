@@ -372,6 +372,9 @@ console.log(test[1]);//返回值为't'
 //强制类型转换
 var a=123
 console.log(a.toString())
+
+//$号的使用,代替document.getElementById()频繁使用的书写方式
+var temp = $('id') //等同于var temp = document.getElementByID（'id'）
 ```
 
 
@@ -451,4 +454,6 @@ XML可以直接写入HTML中，AJAX异步刷新的时候，曾经采用XML字符
 ```
 
 
+
+# VUE
 
