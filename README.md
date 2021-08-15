@@ -434,6 +434,102 @@ var answer = func1(num[0], num[1]);
 
 
 
+### Object属性修改
+
+Object中，属性的赋值方式除了直接的赋值，还有另一种方式：
+
+```javascript
+let number = 18;
+let data = {
+    name: 'batman',
+}
+Object.defineProperty(data, 'age', { //为data赋值一个age属性
+    value:number,
+    enumerable:true, // 表示遍历data的key值时，age属性可以被遍历到
+    writable:true, // 表示该属性的值可以被手动修改
+    configurable:true //表示该属性可以被删除
+})
+```
+
+该种方式进行的属性赋值除了可以标注三种操作权限外，还有一个优势，就是修改变量。
+
+如果需要让age始终与全局变量`number`保持一致，如果直接在data中写`age：number`，则age则相当于在赋值时读取了一次18，后面number即使修改，age也依然是18
+
+而如果采用以下这种方式，则age的值与number会一直同步：
+
+```javascript
+var number = 18
+Object.defineProperty(data, 'age', { //为data赋值一个age属性
+    value:number,
+    enumerable:true, // 表示遍历data的key值时，age属性可以被遍历到
+    writable:true, // 表示该属性的值可以被手动修改
+    configurable:true //表示该属性可以被删除
+})
+```
+
+
+
+## This属性
+
+浏览器调用js的每个函数的时候，都会默认向其中传入一个隐含的参数this
+
+```javascript
+function test(a){
+    console.log(a);
+    console.log(this);
+}
+test(123)
+```
+
+this指向的是函数执行的上下文函数，是一个object对象。this指向的对象会随着函数<font color = 'red'>调用</font>的方式不同而不同
+
+> 只和函数的调用方式不同，与函数的创建方式无关
+
+```javascript
+function test(a){
+    console.log(this);
+}
+var obj{
+    name:'batman',
+    sayName: test;
+}
+obj.sayName() //输出的是obj的内容
+test() //输出的是Windows
+```
+
+
+
+### this的作用
+
+this可以区分全局变量和局部变量
+
+```javascript
+var name = 'name1';
+
+function func(){
+    console.log(name); // func里没有name变量，所以函数会自动向上一级找全局的name变量
+}
+var obj = {
+    name: 'name2',
+    sayName:func
+}
+obj.sayName() //这里输出的依然是全局变量name1
+
+//如果修改func内容为如下的形式：
+function func(){
+    console.log(this->name); // func里没有name变量，所以函数会自动向上一级找全局的name变量
+}
+obj.sayName() //这里输出的就是obj的name属性，即name2
+```
+
+
+
+## DOM
+
+### 节点分类
+
+![image-20210815104822540](image-20210815104822540.png)
+
 
 
 # Ajax
